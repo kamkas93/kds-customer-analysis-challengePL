@@ -1,2 +1,9 @@
-# kds-customer-analysis-challenge
-Analiza danych transakcyjnych udostępnionych przez KajoDataSpace na potrzeby konkursu analitycznego. Głównym celem projektu jest przeprowadzenie analizy kohortowej, aby zbadać retencję (powracalność) klientów w czasie.
+Cohort Analysis – KajoDataSpace Challenge
+
+Data analysis project based on transaction data provided by KajoDataSpace for a recruitment challenge. The project focuses on Cohort Analysis to measure customer retention over time.
+
+Tech Stack:
+
+    PostgreSQL – ETL processes & cohort logic.
+
+    Power BI / Tableau – Data visualization.
