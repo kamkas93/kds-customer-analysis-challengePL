@@ -1,4 +1,4 @@
-Cohort Analysis – KajoDataSpace Challenge
+Customer Analysis – KajoDataSpace Challenge
 
 Data analysis project based on transaction data provided by KajoDataSpace for a recruitment challenge. The project focuses on Cohort Analysis to measure customer retention over time.
 
