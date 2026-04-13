@@ -7,3 +7,6 @@ Tech Stack:
 PostgreSQL – ETL processes & cohort logic.
 
 Power BI - Data visualization.
+
+### Phase 1: Data Cleaning & Raw Ingestion (Completed)
+**Goal:** Transform inconsistent raw CSV data into a reliable SQL structure.
