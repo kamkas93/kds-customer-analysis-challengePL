@@ -4,6 +4,6 @@ Data analysis project based on transaction data provided by KajoDataSpace for a 
 
 Tech Stack:
 
-    PostgreSQL – ETL processes & cohort logic.
+PostgreSQL – ETL processes & cohort logic.
 
-    Power BI / Tableau – Data visualization.
+Power BI - Data visualization.
