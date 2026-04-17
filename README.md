@@ -23,19 +23,40 @@ Key SQL Achievements:
 
     Price Clustering: Autorska segmentacja cenowa pozwalająca odróżnić "Łowców promocji" od klientów "Elite Annual".
 
-📊 Phase 2: Business Insights (The "So What?" Factor)
+📊 Phase 2: Zaawansowana Analityka Kohortowa i Segmentacja (SQL & Power BI)
 
-<img width="2877" height="1618" alt="image" src="https://github.com/user-attachments/assets/405b131c-0e9a-4b5c-b1ba-cf0e0983f1a2" />
+Głównym celem projektu było zidentyfikowanie najbardziej rentownych ścieżek klienta (Customer Journey) w ekosystemie KajoDataSpace. W tym celu wdrożono autorską logikę segmentacji oraz model retencji oparty na kohortach.
+🧩 Metodologia Segmentacji (Pattern Recognition)
 
-Kluczowe Wnioski:
+Zamiast prostego przypisywania kwot, zastosowałem logikę Heurystyki Cenowej w SQL, która automatycznie klasyfikuje transakcje na podstawie ich struktury i wzorców:
 
-    Fundament 50/50: Przychody rozkładają się niemal idealnie pomiędzy akwizycję (48%) a retencję (51%), co świadczy o bardzo zdrowym modelu biznesowym.
+    Elite Annual (≥890 PLN): Segment High-Ticket. Klienci o najwyższym LTV, płacący z góry za dostęp roczny.
 
-    Fenomen Trial Starter: Użytkownicy wchodzący przez promocję wykazują najwyższą lojalność długoterminową – promocja u Kajo to "maszyna do budowania bazy powracających".
+    Classic Monthly: Główne produkty subskrypcyjne (89, 99, 169, 199, 249 PLN). Trzon przychodowy biznesu.
 
-    Pociąg Biznesu: Segment Classic Monthly to kręgosłup finansowy firmy, wykazujący stabilną retencję mimo naturalnego churnu w pierwszym miesiącu.
+    Trial Starter: Kluczowy lejek akwizycyjny. Wyodrębniony za pomocą logiki:
 
-    Elite Annual LTV: Klienci wysokobudżetowi generują najwyższą wartość natychmiastową (1400+ na wejściu), co pozwala na szybki zwrot kosztów marketingu (CAC).
+        Kwoty wejściowe (<89 PLN)
+
+        Niestandardowe końcówki cenowe (np. grosze), identyfikowane przez operator modulo (%) i analizę tekstu, wskazujące na dynamiczne zniżki procentowe.
+
+    Smart Saver & Basic Access: Pakiety wielomiesięczne oraz transakcje uzupełniające.
+
+📈 Kluczowe Funkcje Modelu Danych
+
+W celu uzyskania prawdziwego obrazu lojalności, model SQL został wzbogacony o:
+
+    Logikę Entry Segment: Przy wykorzystaniu funkcji okna FIRST_VALUE, każdy klient jest analizowany przez pryzmat swojej "ceny wejścia". Zapobiega to błędom w wykresach retencji, gdzie migracja klienta do droższego planu byłaby błędnie interpretowana jako odejście (churn).
+
+    Analizę Kohortową: Dynamiczne obliczanie month_number dla każdej transakcji, co pozwoliło na stworzenie macierzy retencji monitorującej stabilność bazy użytkowników w czasie.
+
+💡 Główne Wnioski Biznesowe
+
+    Paradoks Trial Startera: Analiza wykazała, że segment promocyjny, mimo najniższej bazy wejściowej, generuje najwyższą retencję długoterminową. Strategia "taniego wejścia" skutecznie buduje lojalnych subskrybentów.
+
+    Stabilizacja Retencji: Punkt krytyczny przypada na 3-4 miesiąc. Użytkownicy, którzy przejdą ten próg, wykazują wysoką stabilność płatniczą (retencja na poziomie ~30%).
+
+    Optymalizacja Przychodów: Największy potencjał do optymalizacji cenowej leży w segmencie Classic Monthly ze względu na jego skalę i odporność na jednostkowe odejścia.
 
 📂 Repository Structure
 
