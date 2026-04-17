@@ -1,9 +1,20 @@
--- step 1 CREATE SCHEMA
+--------------------------------------------------------------------------------
+-- PROJECT: KajoDataSpace Customer Analysis
+-- SCRIPT: 01_Data_Ingestion_and_Cleaning
+-- GOAL: Initial ETL from raw strings to structured numeric data
+--------------------------------------------------------------------------------
 
-CREATE SCHEMA kds_challenge;
+-- 1. Infrastructure Setup
+-- -----------------------------------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS kds_challenge;
 
--- step 2 CREATE TABLE
+-- Set search path to make the script cleaner, or use explicit schema naming
+SET search_path TO kds_challenge, public;
 
+
+-- 2. Raw Data Ingestion
+-- -----------------------------------------------------------------------------
+-- Drop existing table to ensure a clean start for the ingestion process
 DROP TABLE IF EXISTS kds_transactions_raw;
 
 CREATE TABLE kds_transactions_raw (
@@ -12,23 +23,37 @@ CREATE TABLE kds_transactions_raw (
     amount_raw VARCHAR(20)
 );
 
-select * from kds_transactions_raw limit 10;
+-- Note: Data import (COPY or INSERT) should happen here. 
+-- SELECT * FROM kds_transactions_raw LIMIT 10;
 
--- step 3: ETL & data cleaning
 
--- creating a temp table to avoid mutating original source data
+-- 3. ETL & Data Transformation
+-- -----------------------------------------------------------------------------
+-- Transforming raw strings into proper Date and Numeric types
+-- Replacing comma with dot for decimal consistency
+
 DROP TABLE IF EXISTS kds_transactions_cleaned;
 
 CREATE TABLE kds_transactions_cleaned AS
 SELECT 
-     client AS customer
-    ,to_date(transaction_date, 'DD.MM.YYYY') AS t_date
-    -- fixing decimal separators and casting to proper numeric type
-    ,REPLACE(amount_raw, ',', '.')::DECIMAL(10,2) AS amount
-FROM kds_challenge.kds_transactions_raw;
+    client AS customer,
+    -- Casting string to date using specific European format
+    TO_DATE(transaction_date, 'DD.MM.YYYY') AS t_date,
+    -- Fixing decimal separators and casting to precision numeric type
+    REPLACE(amount_raw, ',', '.')::DECIMAL(10,2) AS amount
+FROM kds_transactions_raw;
 
--- quality check
-SELECT * 
-FROM kds_transactions_cleaned
+
+-- 4. Quality Assurance (QA)
+-- -----------------------------------------------------------------------------
+-- Visual check of the transformed data
+SELECT * FROM kds_transactions_cleaned
 ORDER BY customer, t_date 
 LIMIT 100;
+
+-- Basic check for nulls after transformation
+SELECT 
+    COUNT(*) AS total_rows,
+    COUNT(t_date) AS valid_dates,
+    COUNT(amount) AS valid_amounts
+FROM kds_transactions_cleaned;
