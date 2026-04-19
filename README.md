@@ -2,6 +2,7 @@
 🎯 Project Overview
 
 Kompleksowy projekt analityczny typu End-to-End, skupiony na analizie retencji oraz wartości życiowej klienta (LTV) w modelu subskrypcyjnym. Celem było przekształcenie surowych danych transakcyjnych w strategiczny dashboard, który identyfikuje najbardziej rentowne kohorty i segmenty użytkowników.
+
 🛠 Tech Stack & Methodology
 
     SQL (PostgreSQL): Zaawansowany ETL, okna czasowe (WINDOW functions), heurystyka segmentacji cenowej.
